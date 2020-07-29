@@ -235,7 +235,7 @@ export default {
   transform: scaleX(0);
   opacity: 0;
 }
-.scaleX-leave,
+.scaleX-leave, 
 .scaleX-enter-to {
   transform: scaleX(1);
   opacity: 1;
