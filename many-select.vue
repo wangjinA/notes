@@ -2,7 +2,7 @@
  * @Author: 汪锦
  * @Date: 2020-07-29 09:38:18
  * @LastEditors: 汪锦
- * @LastEditTime: 2020-07-31 10:49:45
+ * @LastEditTime: 2020-08-07 16:50:34
  * @Description: 综合治理 - 多选列表 - 组件递归
 -->
 
@@ -43,6 +43,8 @@
               :dataIndex="index"
               @child-slect-all="childSelectAll"
               @child-slect-all-not="childSelectAllNot"
+              @selectItem="$emit('selectItem', $event)"
+              @reduceItem="$emit('reduceItem', $event)"
             ></many-select>
           </transition>
         </div>

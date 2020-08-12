@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+  grid-template-columns: 150px 150px;
+  grid-gap: 10px 40px;
+  grid-template-areas:
+    "header nav"
+    ". section";
+  justify-items: start;
+  * {
+    padding: 20px;
+    font-size: 150%;
+    background-color: #444;
+    border-radius: 5px;
+    color: #fff;
+  }
+  header {
+    grid-area: header;
+  }
+  nav {
+    grid-area: nav;
+  }
+  section {
+    grid-area: section;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}

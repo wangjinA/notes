@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.imageList-view {
+  display: grid;
+  grid-template-columns: repeat(4, 10vw);
+  grid-gap: 6%;
+  > li {
+    a {
+      transition: transform 0.15s linear;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+      display: block;
+      background: #fff;
+      width: auto;
+      padding: 10px 10px 15px;
+      text-align: center;
+      font-family: "Marker Felt", sans-serif;
+      text-decoration: none;
+      color: #333;
+      font-size: 18px;
+      &::after {
+        content: attr(title);
+      }
+      > img {
+        width: 100%;
+      }
+    }
+  }
+}
+li {
+  list-style: none;
+}
+.imageList-view > li a {
+  transform: rotate(-2deg);
+}
+
+.imageList-view > li:nth-child(even) a {
+  transform: rotate(2deg);
+}
+
+.imageList-view > li:nth-child(3n) a {
+  transform: none;
+  position: relative;
+  top: -5px;
+}
+
+.imageList-view > li:nth-child(5n) a {
+  transform: rotate(5deg);
+  position: relative;
+  right: 5px;
+}
+
+.imageList-view > li:nth-child(8n) a {
+  position: relative;
+  top: 8px;
+  right: 5px;
+}
+
+.imageList-view > li:nth-child(11n) a {
+  position: relative;
+  top: 3px;
+  left: -5px;
+}
+
+.imageList-view > li a:hover {
+  transform: scale(1.25);
+  position: relative;
+  z-index: 5;
+}
