@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cssAPI</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <!-- 附上张鑫旭大神链接：https://www.zhangxinxu.com/wordpress/2020/07/css-var-improve-components/ -->
+  <!-- 
+    以前web组件有一个什么功能，就新增一个API接口，看上去很厉害，实际上，加着加着，API越来越多，组件也越来越重，学习成本也越来越高，最后走向了死胡同，变得笨重，迎来了灭亡。
+    现在，可以改变思路了。
+
+    那些与交互表现密切相关的功能，事实上仅仅在组件容器元素上传递CSS自定义属性就可以了，无需负责具体的定位，显隐，或者样式变化，全部交给CSS。
+
+    因为设计表现的东西是上层的，灵活的，个性的，应该在CSS层面进行驾驭才是合理的，匹配的。
+
+    例如上面提到的loading组件，无论是条状的还是饼状的都是这样的处理逻辑，只负责传递进度值，样式无需关心。
+
+    又例如滑条框（如下图Ant Design中的滑条的位置和提示效果）、popup提示框等都可以通过一个CSS自定义属性完成，JS仅需要把CSS无法获取的数据传递到祖先元素上，不需要负责UI样式。
+   -->
+  <nav>
+    <div>农贸市场</div>
+    <div>水果生鲜</div>
+    <div>小超市</div>
+    <div>这是一个很长的导航</div>
+  </nav>
+  <br>
+  <div class="button">
+    primary
+  </div>
+  <br>
+  <label>进度1</label>
+  <div class="progress" style="--progress: 20%;"></div>
+  <label>进度2</label>
+  <div class="progress" style="--progress: 20%;"></div>
+  <label>进度3</label>
+  <div class="progress" style="--progress: 20%;"></div>
+</body>
+<script>
+  document.querySelector('nav div').click()
+  document.addEventListener('mousedown', function (event) {
+    var target = event.target;
+    var body = document.body;
+    var html = document.documentElement;
+
+    // 设置自定义属性值
+    body.style.setProperty('--pagex', event.pageX);
+    body.style.setProperty('--pagey', event.pageY);
+
+    html.style.setProperty('--clientx', event.clientX);
+    html.style.setProperty('--clienty', event.clientY);
+    html.style.setProperty('--scrolly', window.pageYOffset);
+
+    target.style.setProperty('--offsetx', event.offsetX);
+    target.style.setProperty('--offsety', event.offsetY);
+    if (target.parentElement) {
+      target.parentElement.style.setProperty('--target-width', target.clientWidth);
+      target.parentElement.style.setProperty('--target-height', target.clientHeight);
+      target.parentElement.style.setProperty('--target-left', target.offsetLeft);
+      target.parentElement.style.setProperty('--target-top', target.offsetTop);
+    }
+  });
+  document.querySelectorAll('.progress').forEach(el => {
+    el.onmousedown = function (e) {
+      this.tag = true
+    }
+    el.onmousemove = function (e) {
+      if (this.tag) {
+        let target = event.target;
+        target.style.setProperty('--progress', e.offsetX / target.offsetWidth * 100 + '%');
+      }
+    }
+    el.onmouseup = function (e) {
+      this.tag = false
+    }
+    el.onclick = function (e) {
+      let target = event.target;
+      target.style.setProperty('--progress', e.offsetX / target.offsetWidth * 100 + '%');
+    }
+  })
+</script>
+
+</html>
